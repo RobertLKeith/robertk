@@ -4,6 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--
+      GitHub Pages currently publishes this repository from main / (root).
+      Send that uncompiled entry point to the production build in /docs.
+      The same script is present in the built page, where it becomes a no-op.
+    -->
+    <script>
+      if (!window.location.pathname.includes("/docs/")) {
+        const productionUrl = new URL("./docs/", window.location.href);
+        productionUrl.search = window.location.search;
+        productionUrl.hash = window.location.hash;
+        window.location.replace(productionUrl);
+      }
+    </script>
+
     <!-- Primary SEO -->
     <title>Robert Keith | Film, Television &amp; Stage Actor</title>
     <meta name="description" content="Official website of Robert Keith, SAG-AFTRA and AEA actor working across film, television and stage. Watch his acting reel, explore selected credits and view his professional résumé." />
