@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <rect width="256" height="256" fill="#07070a"/>
+  <circle cx="128" cy="128" r="86" fill="none" stroke="#dbbe78" stroke-width="10"/>
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+        font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+        font-size="64" fill="#ffffff">A</text>
+</svg>
