@@ -1,4 +1,6 @@
 <script>
+  import resumeUrl from "../assets/resume/Robert Keith EA Resume.doc?url";
+
   export let profile;
 
   function shareProfile() {
@@ -56,7 +58,7 @@
         <a class="pill" href={profile.imdbUrl} target="_blank" rel="noreferrer">IMDb</a>
       {/if}
 
-      <a class="pill" href="./Robert-Keith-Resume.pdf" download="Robert-Keith-Resume.pdf">Résumé</a>
+      <a class="pill" href={resumeUrl} download="Robert Keith EA Resume.doc">Résumé</a>
 
   <button
   type="button"
