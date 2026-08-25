@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy": "npm run build",
+    "check": "npm run build && node scripts/verify-build.mjs",
+    "deploy": "npm run check",
     "preview": "vite preview"
   },
   "devDependencies": {

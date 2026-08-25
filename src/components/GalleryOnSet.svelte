@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
 
   const imageModules = import.meta.glob("/src/assets/onset/*.{jpg,JPG,jpeg,JPEG,png,PNG}", { eager: true, import: "default" });
   const order = [
@@ -37,6 +37,8 @@
   let galleryWidth = 0;
   let resizeTimer = null;
   let galleryEl = null;
+  let dialogEl = null;
+  let opener = null;
 
   $: visibleImages = images.slice(0, visibleCount);
   $: hasMore = visibleCount < images.length;
@@ -63,8 +65,8 @@
     return rows;
   }
 
-  function open(index) { selectedIndex = index; document.body.style.overflow = "hidden"; }
-  function close() { selectedIndex = null; document.body.style.overflow = ""; }
+  async function open(index, event) { opener = event.currentTarget; selectedIndex = index; document.body.style.overflow = "hidden"; await tick(); dialogEl?.focus(); }
+  function close() { selectedIndex = null; document.body.style.overflow = ""; opener?.focus(); }
   function next() { if (selectedIndex !== null) selectedIndex = (selectedIndex + 1) % images.length; }
   function prev() { if (selectedIndex !== null) selectedIndex = (selectedIndex - 1 + images.length) % images.length; }
   function handleKey(event) {
@@ -101,8 +103,8 @@
   {#each rows as row}
     <div class="gallery-row" style={`gap:${row.gap}px;margin-bottom:${row.gap}px`}>
       {#each row.items as image}
-        <button class="image-wrapper" style={`width:${image.width}px;height:${image.height}px`} on:click={() => open(image.index)} data-reveal aria-label={`Open on set photo ${image.index + 1}`}>
-          <img src={image.src} alt="Robert Keith on set" loading="lazy" decoding="async" />
+        <button class="image-wrapper" style={`width:${image.width}px;height:${image.height}px`} on:click={(event) => open(image.index, event)} data-reveal aria-label={`Open on set photo ${image.index + 1}`}>
+          <img src={image.src} alt={`Robert Keith on set — photo ${image.index + 1}`} loading="lazy" decoding="async" width={image.width} height={image.height} />
           <span class="overlay"><em>View photo ↗</em></span>
         </button>
       {/each}
@@ -118,7 +120,7 @@
 {/if}
 
 {#if selectedIndex !== null}
-  <div class="lightbox" role="dialog" aria-modal="true" aria-label="On set photo viewer" tabindex="-1" on:touchstart={handleTouchStart} on:touchend={handleTouchEnd}>
+  <div bind:this={dialogEl} class="lightbox" role="dialog" aria-modal="true" aria-label="On set photo viewer" tabindex="-1" on:touchstart={handleTouchStart} on:touchend={handleTouchEnd}>
     <button class="lightbox-backdrop" on:click={close} aria-label="Close photo viewer"></button>
     <button class="lightbox-close" on:click|stopPropagation={close}>Close</button>
     <img src={images[selectedIndex].src} alt="Robert Keith on set, full size" decoding="async" />

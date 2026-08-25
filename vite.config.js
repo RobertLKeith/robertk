@@ -7,6 +7,13 @@ export default defineConfig({
   // (/robertk/) and the production custom domain.
   base: "./",
   plugins: [
+    {
+      name: "pages-production-entry",
+      enforce: "post",
+      transformIndexHtml(html) {
+        return html.replace(/\s*<!-- pages-root-fallback:start -->[\s\S]*?<!-- pages-root-fallback:end -->\s*/, "\n");
+      }
+    },
     svelte(),
     imagetools({
       defaultDirectives: new URLSearchParams({

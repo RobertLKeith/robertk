@@ -1,9 +1,11 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
 
   export let reels = [];
   export let fallbackPoster = "";
   let playing = {};
+  let dialogEl;
+  let opener;
 
   function toEmbed(url) {
     if (!url) return "";
@@ -24,6 +26,14 @@
 
   function closeReel() {
     playing = {};
+    opener?.focus();
+  }
+
+  async function openReel(index, event) {
+    opener = event.currentTarget;
+    playing = { [index]: true };
+    await tick();
+    dialogEl?.focus();
   }
 
   function handleKey(event) {
@@ -49,7 +59,7 @@
     <article class="showreel-wrap" data-reveal>
       <p>{reel.title || `Reel ${index + 1}`}</p>
       <div class="frame">
-        <button class="reel-poster" type="button" on:click={() => playing = {...playing, [index]: true}} aria-label={`Play ${reel.title || `reel ${index + 1}`}`}>
+        <button class="reel-poster" type="button" on:click={(event) => openReel(index, event)} aria-label={`Play ${reel.title || `reel ${index + 1}`}`}>
           {#if reel.thumbnail || fallbackPoster}<img src={reel.thumbnail || fallbackPoster} alt="" loading="lazy" decoding="async" />{/if}
           <span class="reel-poster-shade"></span><span class="reel-play"><b>Play reel</b><i>▶</i></span>
         </button>
@@ -59,7 +69,7 @@
 </div>
 
 {#if activeIndex !== null}
-  <div class="reel-fullscreen" role="dialog" aria-modal="true" aria-label="Video player">
+  <div bind:this={dialogEl} class="reel-fullscreen" role="dialog" aria-modal="true" aria-label="Video player" tabindex="-1">
     <button class="reel-backdrop" on:click={closeReel} aria-label="Close video"></button>
     <div class="reel-player">
       <button class="reel-close" on:click={closeReel} aria-label="Close">Close</button>

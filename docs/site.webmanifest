@@ -2,9 +2,16 @@
   "name": "Robert Keith — Actor",
   "short_name": "Robert Keith",
   "description": "Official website of film, television and stage actor Robert Keith.",
-  "start_url": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#07070a",
   "theme_color": "#07070a",
-  "icons": []
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
 }

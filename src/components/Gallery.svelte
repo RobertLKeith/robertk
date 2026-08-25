@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
 
   const imageModules = import.meta.glob("/src/assets/gallery/*.{jpg,JPG,jpeg,JPEG,png,PNG}", { eager: true, import: "default" });
   const order = [
@@ -26,9 +26,11 @@
   let images = [...sourceImages];
   let selectedIndex = null;
   let touchStartX = 0;
+  let dialogEl;
+  let opener;
 
-  function open(index) { selectedIndex = index; document.body.style.overflow = "hidden"; }
-  function close() { selectedIndex = null; document.body.style.overflow = ""; }
+  async function open(index, event) { opener = event.currentTarget; selectedIndex = index; document.body.style.overflow = "hidden"; await tick(); dialogEl?.focus(); }
+  function close() { selectedIndex = null; document.body.style.overflow = ""; opener?.focus(); }
   function next() { if (selectedIndex !== null) selectedIndex = (selectedIndex + 1) % images.length; }
   function prev() { if (selectedIndex !== null) selectedIndex = (selectedIndex - 1 + images.length) % images.length; }
   function handleKey(event) {
@@ -51,7 +53,7 @@
 
 <section class="gallery" aria-label="Portrait gallery">
   {#each images as image, index}
-    <button class="image-wrapper" on:click={() => open(index)} data-reveal aria-label={`Open portrait ${index + 1}`}>
+    <button class="image-wrapper" on:click={(event) => open(index, event)} data-reveal aria-label={`Open portrait ${index + 1}`}>
       <img src={image.src} alt="Portrait of actor Robert Keith" loading="lazy" decoding="async" width="1200" height="1500" />
       <span class="overlay"><em>View portrait ↗</em></span>
     </button>
@@ -59,7 +61,7 @@
 </section>
 
 {#if selectedIndex !== null}
-  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Portrait viewer" tabindex="-1" on:touchstart={handleTouchStart} on:touchend={handleTouchEnd}>
+  <div bind:this={dialogEl} class="lightbox" role="dialog" aria-modal="true" aria-label="Portrait viewer" tabindex="-1" on:touchstart={handleTouchStart} on:touchend={handleTouchEnd}>
     <button class="lightbox-backdrop" on:click={close} aria-label="Close portrait viewer"></button>
     <button class="lightbox-close" on:click|stopPropagation={close}>Close</button>
     <img src={images[selectedIndex].src} alt="Portrait of actor Robert Keith, full size" decoding="async" />
