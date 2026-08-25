@@ -1,4 +1,6 @@
 import reelThumbnail from "../assets/reelthumbnails/reel.jpg?w=1200&format=webp&q=80";
+import shortReelThumbnail from "../assets/reelthumbnails/shortreel.jpeg?w=1200&format=webp&q=80";
+import theaterReelThumbnail from "../assets/reelthumbnails/theaterreel.jpg?w=1200&format=webp&q=80";
 
 export const profile = {
   name: "Robert Keith", email: "robert@robertkeith.com", location: "Los Angeles · Texas",
@@ -18,9 +20,21 @@ export const agency = {
 };
 export const showreels = [
   {
-    title: "Robert Keith — Acting Reel",
+    title: "Robert Keith — Sizzle Reel",
     embedUrl: "https://www.youtube.com/watch?v=u6vaLpdJfK4",
     thumbnail: reelThumbnail
+  },
+  {
+    title: "Robert Keith — Short Reel",
+    // Placeholder until the final short-reel URL is available.
+    embedUrl: "https://www.youtube.com/watch?v=u6vaLpdJfK4",
+    thumbnail: shortReelThumbnail
+  },
+  {
+    title: "Robert Keith — Theater Reel",
+    // Placeholder until the final theater-reel URL is available.
+    embedUrl: "https://www.youtube.com/watch?v=u6vaLpdJfK4",
+    thumbnail: theaterReelThumbnail
   }
 ];
 export const seo = {
