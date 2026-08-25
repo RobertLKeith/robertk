@@ -56,7 +56,7 @@
         <a class="pill" href={profile.imdbUrl} target="_blank" rel="noreferrer">IMDb</a>
       {/if}
 
-      <a class="pill" href="/cv.pdf" download>CV</a>
+      <a class="pill" href="./Robert-Keith-Resume.pdf" download="Robert-Keith-Resume.pdf">Résumé</a>
 
   <button
   type="button"

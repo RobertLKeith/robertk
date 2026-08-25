@@ -10,8 +10,9 @@
     "RobertKeith6779 2",
     "Robert Keith-4901_5x7_1500x2100 copy"
   ];
+  const normalizeName = name => name.replace(/^\d+\s*[-_.]\s*/, "");
   const byName = new Map(Object.entries(imageModules).map(([path, src]) => [
-    path.split("/").pop().replace(/\.[^.]+$/i, ""), src
+    normalizeName(path.split("/").pop().replace(/\.[^.]+$/i, "")), src
   ]));
   const sourceImages = order
     .map(name => byName.get(name) ? { name, src: byName.get(name) } : null)

@@ -21,19 +21,17 @@ export const agency = {
 export const showreels = [
   {
     title: "Robert Keith — Sizzle Reel",
-    embedUrl: "https://www.youtube.com/watch?v=u6vaLpdJfK4",
+    embedUrl: "https://youtu.be/k_423cP7_FI?si=dwVq2CPiheT1rPqd",
     thumbnail: reelThumbnail
   },
   {
     title: "Robert Keith — Short Reel",
-    // Placeholder until the final short-reel URL is available.
-    embedUrl: "https://www.youtube.com/watch?v=u6vaLpdJfK4",
+    embedUrl: "https://youtu.be/UnO5wUboFhg?si=GorZKpAtcg555IQE",
     thumbnail: shortReelThumbnail
   },
   {
     title: "Robert Keith — Theater Reel",
-    // Placeholder until the final theater-reel URL is available.
-    embedUrl: "https://www.youtube.com/watch?v=u6vaLpdJfK4",
+    embedUrl: "https://youtu.be/fp3ZvmJhVLY?si=Ky5czCFDN0DobdTI",
     thumbnail: theaterReelThumbnail
   }
 ];

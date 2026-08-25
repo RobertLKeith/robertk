@@ -29,6 +29,7 @@
     );
   const initialCount = 9;
   const batchSize = 8;
+  const looseFraming = new Set([0, 1, 5, 8]);
 
   let images = [...sourceImages];
   let visibleCount = Math.min(initialCount, images.length);
@@ -59,7 +60,12 @@
     for (let i = 0; i < ready.length; i += perRowMax) {
       rows.push({
         gap,
-        items: ready.slice(i, i + perRowMax).map((item) => ({ ...item, width: tile, height: tile }))
+        items: ready.slice(i, i + perRowMax).map((item) => ({
+          ...item,
+          width: tile,
+          height: tile,
+          looseFraming: looseFraming.has(item.index)
+        }))
       });
     }
     return rows;
@@ -103,7 +109,7 @@
   {#each rows as row}
     <div class="gallery-row" style={`gap:${row.gap}px;margin-bottom:${row.gap}px`}>
       {#each row.items as image}
-        <button class="image-wrapper" style={`width:${image.width}px;height:${image.height}px`} on:click={(event) => open(image.index, event)} data-reveal aria-label={`Open on set photo ${image.index + 1}`}>
+        <button class:loose-framing={image.looseFraming} class="image-wrapper" style={`width:${image.width}px;height:${image.height}px`} on:click={(event) => open(image.index, event)} data-reveal aria-label={`Open on set photo ${image.index + 1}`}>
           <img src={image.src} alt={`Robert Keith on set — photo ${image.index + 1}`} loading="lazy" decoding="async" width={image.width} height={image.height} />
           <span class="overlay"><em>View photo ↗</em></span>
         </button>
