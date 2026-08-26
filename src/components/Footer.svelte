@@ -1,5 +1,12 @@
 <script>
-  import resumeUrl from "../assets/resume/Robert Keith EA Resume.doc?url";
+  const resumeModules = import.meta.glob(["../assets/resume/*", "!../assets/resume/.*"], {
+    eager: true,
+    query: "?url",
+    import: "default"
+  });
+  const resumePath = Object.keys(resumeModules).sort()[0];
+  const resumeUrl = resumePath ? resumeModules[resumePath] : null;
+  const resumeFilename = resumePath ? resumePath.split("/").pop() : null;
 
   export let profile;
 
@@ -58,7 +65,9 @@
         <a class="pill" href={profile.imdbUrl} target="_blank" rel="noreferrer">IMDb</a>
       {/if}
 
-      <a class="pill" href={resumeUrl} download="Robert Keith EA Resume.doc">Résumé</a>
+      {#if resumeUrl}
+        <a class="pill" href={resumeUrl} download={resumeFilename}>Résumé</a>
+      {/if}
 
   <button
   type="button"
