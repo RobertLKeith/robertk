@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://369-webdev.github.io/robertk/sitemap.xml
+Sitemap: https://robertkeith.com/sitemap.xml

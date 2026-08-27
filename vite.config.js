@@ -3,9 +3,8 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { imagetools } from "vite-imagetools";
 
 export default defineConfig({
-  // Relative asset URLs work on both the GitHub Pages project path
-  // (/robertk/) and the production custom domain.
-  base: "./",
+  // The custom domain serves the site from its root.
+  base: "/",
   plugins: [
     {
       name: "pages-production-entry",
@@ -24,7 +23,7 @@ export default defineConfig({
     })
   ],
   build: {
-    outDir: "docs",
+    outDir: "dist",
     emptyOutDir: true,
     cssMinify: true,
     sourcemap: false
