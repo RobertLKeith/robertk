@@ -3,20 +3,191 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
-    <title>Not found</title>
+    <meta name="robots" content="noindex,follow" />
+    <meta name="theme-color" content="#0b0b0a" />
+    <title>Page Not Found | Robert Keith</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400&amp;display=swap" />
+    <link rel="icon" href="/favicon.svg" />
     <style>
-      body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background:#07070a; color:#fff; }
-      .wrap{ min-height:100vh; display:grid; place-items:center; padding:24px; text-align:center; }
-      a{ color:#dbbe78; text-decoration:none; }
+      :root {
+        --ink: #0b0b0a;
+        --acid: #d8ff3e;
+        --muted: #96968e;
+        --line: rgba(255, 255, 255, 0.24);
+        --serif: "Newsreader", Georgia, serif;
+        --sans: "DM Sans", sans-serif;
+        --gutter: clamp(20px, 4.2vw, 68px);
+      }
+
+      * { box-sizing: border-box; }
+      html { background: var(--ink); }
+      body {
+        min-width: 320px;
+        margin: 0;
+        background: var(--ink);
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; text-decoration: none; }
+      a:focus-visible { outline: 2px solid var(--acid); outline-offset: 5px; }
+
+      .page {
+        min-height: 100svh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        overflow: hidden;
+        position: relative;
+        isolation: isolate;
+      }
+      .page::before {
+        content: "";
+        position: absolute;
+        z-index: -2;
+        inset: 0;
+        background:
+          radial-gradient(circle at 82% 32%, rgba(216, 255, 62, 0.12), transparent 24%),
+          linear-gradient(125deg, transparent 0 61%, rgba(255, 255, 255, 0.035) 61% 61.1%, transparent 61.1%);
+      }
+      .page::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: min(50vw, 720px);
+        aspect-ratio: 1;
+        top: 50%;
+        right: 5vw;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 50%;
+        transform: translateY(-50%);
+      }
+      .container {
+        width: calc(100% - var(--gutter) * 2);
+        max-width: 1460px;
+        margin-inline: auto;
+      }
+      header {
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+      }
+      .wordmark,
+      .header-note,
+      .eyebrow,
+      .links a,
+      footer {
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+      }
+      .wordmark { font-size: 12px; font-weight: 500; }
+      .header-note,
+      .eyebrow,
+      .links a,
+      footer { font-size: 9px; }
+      .header-note { color: var(--muted); }
+      main {
+        min-width: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+        align-items: center;
+        gap: clamp(48px, 8vw, 140px);
+        padding-block: clamp(64px, 10vh, 120px);
+      }
+      .error-code {
+        margin: 0;
+        color: transparent;
+        font: 300 clamp(180px, 30vw, 480px) / 0.65 var(--serif);
+        letter-spacing: -0.09em;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.34);
+        user-select: none;
+      }
+      .message { min-width: 0; align-self: end; padding-bottom: clamp(8px, 3vw, 48px); }
+      .eyebrow { margin: 0 0 22px; color: var(--acid); font-weight: 500; }
+      h1 {
+        max-width: 620px;
+        margin: 0;
+        font: 300 clamp(58px, 7.3vw, 116px) / 0.84 var(--serif);
+        letter-spacing: -0.055em;
+      }
+      h1 em { color: var(--acid); font-weight: 300; }
+      .description {
+        max-width: 440px;
+        margin: 30px 0 38px;
+        color: #b9b9b1;
+        font: 300 clamp(18px, 1.8vw, 25px) / 1.45 var(--serif);
+      }
+      .links { display: flex; flex-wrap: wrap; gap: 10px; }
+      .links a {
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 19px;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+      }
+      .links .primary { background: #fff; color: var(--ink); border-color: #fff; }
+      .links a:hover { background: var(--acid); border-color: var(--acid); color: var(--ink); }
+      footer {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+      footer span:last-child { text-align: right; }
+
+      @media (max-width: 800px) {
+        .page { width: 100vw; max-width: 100vw; }
+        .container { width: calc(100vw - 40px); max-width: calc(100vw - 40px); margin-inline: auto; }
+        header { height: 66px; }
+        .header-note { display: none; }
+        main { grid-template-columns: minmax(0, 1fr); gap: 30px; padding-block: 54px; }
+        .error-code { max-width: 100%; font-size: clamp(140px, 44vw, 190px); }
+        .message { padding-bottom: 0; }
+        h1 { font-size: clamp(52px, 14vw, 76px); }
+        .description { margin: 24px 0 32px; }
+        footer { min-height: 84px; align-items: flex-start; padding-block: 22px; }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .error-code { animation: settle 900ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .message { animation: reveal 800ms 120ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes settle { from { opacity: 0; transform: translateX(-30px); } }
+        @keyframes reveal { from { opacity: 0; transform: translateY(24px); } }
+      }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <div>
-        <h1>Page not found</h1>
-        <p><a href="./">Go home</a></p>
-      </div>
+    <div class="page">
+      <header class="container">
+        <a class="wordmark" href="/" aria-label="Robert Keith home">Robert Keith</a>
+        <span class="header-note">Film · Television · Stage</span>
+      </header>
+      <main class="container" aria-labelledby="error-title">
+        <p class="error-code" aria-hidden="true">404</p>
+        <section class="message">
+          <p class="eyebrow">Scene not found</p>
+          <h1 id="error-title">This page missed its <em>cue.</em></h1>
+          <p class="description">The address may have changed, or the page may no longer be in the cast. Return to Robert Keith’s official site or jump to a featured section.</p>
+          <nav class="links" aria-label="Error page navigation">
+            <a class="primary" href="/">Return home ↗</a>
+            <a href="/#showreel">Watch reels</a>
+            <a href="/#portraits">View portraits</a>
+          </nav>
+        </section>
+      </main>
+      <footer class="container">
+        <span>Error 404</span>
+        <span>Robert Keith · Actor</span>
+      </footer>
     </div>
   </body>
 </html>
